@@ -1,0 +1,146 @@
+{
+  "appId": "com.21byts.audiodownloader",
+  "productName": "21 BYTS",
+  "copyright": "Copyright © 2025 21 BYTS",
+
+  "directories": {
+    "output": "dist",
+    "buildResources": "build"
+  },
+
+  "files": [
+    "**/*",
+    "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+    "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+    "!**/node_modules/*.d.ts",
+    "!**/node_modules/.bin",
+    "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+    "!.editorconfig",
+    "!**/._*",
+    "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+    "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+    "!**/{appveyor.yml,.travis.yml,circle.yml}",
+    "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+  ],
+
+  "extraResources": [
+    {
+      "from": "resources",
+      "to": "resources",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "node_modules/yt-dlp-wrap/bin",
+      "to": "resources/bin",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "node_modules/ffmpeg-static/bin",
+      "to": "resources/bin",
+      "filter": ["**/*"]
+    },
+    {
+      "from": "node_modules/tidal-media-downloader/bin",
+      "to": "resources/bin",
+      "filter": ["**/*"]
+    }
+  ],
+
+  "mac": {
+    "category": "public.app-category.music",
+    "target": ["dmg", "zip"],
+    "icon": "build/icons/icon.icns",
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "entitlements": "build/entitlements.mac.plist",
+    "entitlementsInherit": "build/entitlements.mac.plist",
+    "darkModeSupport": true
+  },
+
+  "dmg": {
+    "background": "build/background.png",
+    "icon": "build/icons/icon.icns",
+    "iconSize": 128,
+    "window": {
+      "width": 540,
+      "height": 380
+    },
+    "contents": [
+      {
+        "x": 130,
+        "y": 220
+      },
+      {
+        "x": 410,
+        "y": 220,
+        "type": "link",
+        "path": "/Applications"
+      }
+    ]
+  },
+
+  "win": {
+    "target": ["nsis"],
+    "icon": "build/icons/icon.ico",
+    "artifactName": "${productName}-Setup-${version}.${ext}"
+  },
+
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "deleteAppDataOnUninstall": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "21 BYTS",
+    "perMachine": false,
+    "runAfterFinish": true,
+    "installerIcon": "build/icons/icon.ico",
+    "uninstallerIcon": "build/icons/icon.ico",
+    "installerHeaderIcon": "build/icons/icon.ico"
+  },
+
+  "linux": {
+    "target": ["AppImage", "deb"],
+    "icon": "build/icons",
+    "category": "Audio",
+    "synopsis": "Téléchargeur audio multiplateforme",
+    "description": "Application de bureau intuitive permettant de télécharger des fichiers audio depuis des plateformes de streaming",
+    "desktop": {
+      "Name": "21 BYTS",
+      "Comment": "Téléchargement audio depuis YouTube, Bandcamp, SoundCloud, Spotify, Tidal, etc.",
+      "Categories": "Audio;Utility;",
+      "Terminal": false
+    }
+  },
+
+  "appImage": {
+    "license": "LICENSE",
+    "artifactName": "${productName}-${version}.${ext}"
+  },
+
+  "deb": {
+    "depends": ["libnotify4", "libappindicator1"],
+    "afterInstall": "build/scripts/debian-after-install.sh",
+    "afterRemove": "build/scripts/debian-after-remove.sh"
+  },
+
+  "publish": {
+    "provider": "github",
+    "owner": "21byts",
+    "repo": "audio-downloader",
+    "releaseType": "release",
+    "publishAutoUpdate": true,
+    "vPrefixedTagName": true
+  },
+
+  "electronUpdaterCompatibility": ">= 2.16",
+
+  "asar": true,
+
+  "compression": "maximum",
+
+  "protocols": {
+    "name": "audio-downloader-protocol",
+    "schemes": ["21byts"]
+  }
+}

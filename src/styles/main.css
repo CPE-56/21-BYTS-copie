@@ -1,0 +1,687 @@
+/**
+ * @file main.css
+ * @description Feuille de style principale pour l'application 21 BYTS.
+ * Ce fichier définit les styles globaux de l'application tout en respectant
+ * l'architecture modulaire. Il ne dépend d'aucun autre fichier du projet.
+ *
+ * Événements écoutés:
+ * - THEME_CHANGED - Pour mettre à jour dynamiquement les variables CSS
+ * - UI_SCALE_CHANGED - Pour ajuster la taille des éléments
+ *
+ * Événements émis:
+ * - CSS_LOADED - Quand les styles sont chargés dans le DOM
+ * - CSS_ERROR - En cas d'erreur lors de l'application des styles
+ */
+
+/* ====== VARIABLES CSS ====== */
+:root {
+    /* Couleurs de base */
+    --primary-bg: #1a1f35;
+    --secondary-bg: #2d3a66;
+    --surface-bg: rgba(255, 255, 255, 0.07);
+    --surface-hover-bg: rgba(255, 255, 255, 0.1);
+    --surface-active-bg: rgba(255, 255, 255, 0.12);
+
+    /* Couleurs d'accentuation */
+    --accent-primary: rgba(255, 255, 255, 0.9);
+    --accent-secondary: rgba(255, 255, 255, 0.7);
+    --accent-tertiary: rgba(255, 255, 255, 0.5);
+
+    /* Couleurs des plateformes */
+    --youtube-color: #ee0000;
+    --bandcamp-color: #1da0c3;
+    --spotify-color: #1db954;
+    --soundcloud-color: #ff7700;
+    --tidal-color: #000000;
+
+    /* Bordures */
+    --border-light: rgba(255, 255, 255, 0.2);
+    --border-medium: rgba(255, 255, 255, 0.25);
+
+    /* Ombres */
+    --shadow-light: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+    /* Espacements */
+    --space-xxs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    /* Rayons des coins */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+
+    /* Typographie */
+    --font-primary: 'Roboto', 'Segoe UI', 'Arial', sans-serif;
+    --font-secondary: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+    --font-title: 'Delta Gothic One', 'Roboto', sans-serif;
+    --font-button: 'Do Hyeon', 'Roboto', sans-serif;
+
+    /* Tailles de police */
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-md: 16px;
+    --text-lg: 18px;
+    --text-xl: 24px;
+    --text-xxl: 32px;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease-out;
+    --transition-normal: 0.25s ease-out;
+    --transition-slow: 0.35s ease-out;
+  }
+
+  /* ====== RESET ====== */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* ====== BASE ====== */
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-primary);
+    font-size: var(--text-md);
+    color: var(--accent-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  /* ====== LAYOUT ====== */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: var(--space-sm);
+    gap: var(--space-sm);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 120px;
+    padding: var(--space-md);
+    background: var(--surface-active-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-medium);
+  }
+
+  .main-content {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--surface-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    padding: var(--space-md);
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-sm);
+    height: 40px;
+    padding: 0 var(--space-md);
+    background: var(--surface-active-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-medium);
+  }
+
+  /* ====== BRANDING ====== */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .brand-logo {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(66, 133, 244, 0.8);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-name {
+    font-family: var(--font-title);
+    font-size: var(--text-xxl);
+    font-weight: bold;
+    color: var(--accent-primary);
+  }
+
+  /* ====== CONTRÔLES EN-TÊTE ====== */
+  .header-controls {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .control-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xxs);
+  }
+
+  .control-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+
+  .control-icon:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .control-label {
+    font-family: var(--font-button);
+    font-size: var(--text-xs);
+    color: var(--accent-primary);
+  }
+
+  /* ====== ZONE DE SAISIE DE L'URL ====== */
+  .url-input-container {
+    margin-bottom: var(--space-md);
+  }
+
+  .url-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    color: var(--accent-primary);
+    font-size: var(--text-md);
+    outline: none;
+    transition: border-color var(--transition-fast);
+  }
+
+  .url-input:focus {
+    border-color: var(--border-medium);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .url-input::placeholder {
+    color: var(--accent-tertiary);
+  }
+
+  /* ====== ÉLÉMENTS DE TÉLÉCHARGEMENT ====== */
+  .download-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .download-item {
+    display: flex;
+    align-items: center;
+    padding: var(--space-md);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+    height: 90px;
+  }
+
+  /* Barres de progression par plateforme */
+  .progress-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 0;
+    border-radius: var(--radius-md);
+    opacity: 0.15;
+    transition: width var(--transition-normal);
+  }
+
+  .progress-bg.youtube {
+    background-color: var(--youtube-color);
+  }
+
+  .progress-bg.bandcamp {
+    background-color: var(--bandcamp-color);
+  }
+
+  .progress-bg.spotify {
+    background-color: var(--spotify-color);
+  }
+
+  .progress-bg.soundcloud {
+    background-color: var(--soundcloud-color);
+  }
+
+  .progress-bg.tidal {
+    background-color: var(--tidal-color);
+  }
+
+  /* Contenu de l'élément de téléchargement */
+  .thumbnail {
+    width: 70px;
+    height: 70px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-light);
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .download-info {
+    flex: 1;
+    margin-left: var(--space-md);
+    z-index: 1;
+  }
+
+  .track-title {
+    font-size: var(--text-lg);
+    font-weight: bold;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-xxs);
+  }
+
+  .artist-name {
+    font-size: var(--text-sm);
+    color: var(--accent-secondary);
+    margin-bottom: var(--space-xxs);
+  }
+
+  .album-name {
+    font-size: var(--text-xs);
+    color: var(--accent-tertiary);
+  }
+
+  .download-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    z-index: 1;
+  }
+
+  .format-selector {
+    position: relative;
+    width: 80px;
+  }
+
+  .format-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    color: var(--accent-secondary);
+    font-size: var(--text-sm);
+    cursor: pointer;
+  }
+
+  .format-options {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 100%;
+    background: var(--primary-bg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: var(--space-xxs) 0;
+    z-index: 10;
+    display: none;
+  }
+
+  .format-option {
+    padding: var(--space-xs);
+    text-align: center;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+
+  .format-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .format-selector.open .format-options {
+    display: block;
+  }
+
+  .download-button {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+  }
+
+  .download-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  /* ====== BOUTONS DU PIED DE PAGE ====== */
+  .footer-button {
+    height: 30px;
+    padding: 0 var(--space-md);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    color: var(--accent-primary);
+    font-family: var(--font-button);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  /* ====== ANIMATION ET EFFETS ====== */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  .downloading {
+    animation: pulse 2s infinite;
+  }
+
+  /* ====== PANNEAU DE PARAMÈTRES ====== */
+  .settings-panel {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: 80%;
+    max-width: 600px;
+    background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-medium);
+    padding: var(--space-lg);
+    z-index: 100;
+    opacity: 0;
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .settings-panel.visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  .settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .settings-title {
+    font-size: var(--text-xl);
+    font-weight: bold;
+    color: var(--accent-primary);
+  }
+
+  .close-settings {
+    background: none;
+    border: none;
+    color: var(--accent-tertiary);
+    font-size: var(--text-xl);
+    cursor: pointer;
+  }
+
+  .settings-section {
+    margin-bottom: var(--space-lg);
+  }
+
+  .settings-section-title {
+    font-size: var(--text-md);
+    font-weight: bold;
+    color: var(--accent-secondary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .setting-label {
+    color: var(--accent-primary);
+  }
+
+  .setting-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--accent-primary);
+  }
+
+  .setting-button {
+    padding: var(--space-xs) var(--space-md);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-sm);
+    color: var(--accent-primary);
+    cursor: pointer;
+  }
+
+  /* ====== EFFETS DÉCORATIFS ====== */
+  .decorative-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Points décoratifs */
+  .dots-pattern {
+    width: 100%;
+    height: 100%;
+    opacity: 0.05;
+    background-image: radial-gradient(circle, white 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Formes décoratives */
+  .decorative-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+  }
+
+  .shape-blue {
+    width: 160px;
+    height: 160px;
+    left: 100px;
+    bottom: 50px;
+    background: #4285f4;
+  }
+
+  .shape-green {
+    width: 240px;
+    height: 240px;
+    right: 100px;
+    top: 50px;
+    background: #0F9D58;
+  }
+
+  .shape-red {
+    width: 200px;
+    height: 140px;
+    right: 50px;
+    bottom: 150px;
+    background: #DB4437;
+    border-radius: 70px;
+  }
+
+  .shape-yellow {
+    width: 240px;
+    height: 140px;
+    left: 150px;
+    top: 150px;
+    background: #F4B400;
+    border-radius: 70px;
+  }
+
+  /* ====== UTILITAIRES ====== */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* ====== MEDIA QUERIES ====== */
+  @media (max-width: 768px) {
+    .header {
+      height: auto;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .brand {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .header-controls {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .download-item {
+      flex-direction: column;
+      height: auto;
+      align-items: flex-start;
+    }
+
+    .download-info {
+      width: 100%;
+      margin-left: 0;
+      margin-top: var(--space-sm);
+    }
+
+    .download-controls {
+      width: 100%;
+      justify-content: space-between;
+      margin-top: var(--space-sm);
+    }
+  }
+
+  /* Initialisation du module CSS par événement */
+  document.addEventListener('DOMContentLoaded', function() {
+    // IMPORTANT: Ce script d'initialisation serait normalement séparé et chargé via le preload.js
+
+    // Déclare que les styles sont chargés
+    const cssLoadedEvent = new CustomEvent('CSS_LOADED', {
+      detail: {
+        timestamp: Date.now()
+      }
+    });
+
+    // Émet l'événement de chargement CSS
+    document.dispatchEvent(cssLoadedEvent);
+
+    // Écoute les changements de thème
+    document.addEventListener('THEME_CHANGED', function(e) {
+      const theme = e.detail.theme;
+      // Applique les variables CSS du thème
+      if (theme === 'dark') {
+        document.documentElement.style.setProperty('--primary-bg', '#0a0a15');
+        document.documentElement.style.setProperty('--secondary-bg', '#1a1a35');
+      } else if (theme === 'light') {
+        document.documentElement.style.setProperty('--primary-bg', '#e0e5ff');
+        document.documentElement.style.setProperty('--secondary-bg', '#c0c9e8');
+      }
+    });
+
+    // Écoute les changements d'échelle UI
+    document.addEventListener('UI_SCALE_CHANGED', function(e) {
+      const scale = e.detail.scale;
+      // Ajuste les tailles de police
+      document.documentElement.style.setProperty('--text-md', `${16 * scale}px`);
+      document.documentElement.style.setProperty('--text-lg', `${18 * scale}px`);
+      document.documentElement.style.setProperty('--text-xl', `${24 * scale}px`);
+    });
+
+    // Gestion d'erreur
+    try {
+      // Vérifie que les styles ont été correctement appliqués
+      const computedBg = getComputedStyle(document.body).backgroundColor;
+      if (!computedBg) {
+        throw new Error('Échec de l\'application des styles');
+      }
+    } catch (err) {
+      // Signale l'erreur via un événement
+      const cssErrorEvent = new CustomEvent('CSS_ERROR', {
+        detail: {
+          message: err.message,
+          timestamp: Date.now()
+        }
+      });
+      document.dispatchEvent(cssErrorEvent);
+    }
+  });
+
+  /**
+   * Utilisation du module CSS:
+   *
+   * 1. Ce fichier est chargé via une balise <link> dans le HTML principal
+   * 2. Il émet un événement 'CSS_LOADED' quand il est prêt
+   * 3. D'autres modules peuvent écouter 'THEME_CHANGED' ou 'UI_SCALE_CHANGED'
+   *    pour mettre à jour l'interface
+   * 4. Exemple:
+   *    document.addEventListener('THEME_CHANGED', function(e) {
+   *      console.log('Thème changé pour:', e.detail.theme);
+   *    });
+   *//* Styles principaux de l'application */
+/* Créé automatiquement le 2025-05-02 */
+

@@ -1,0 +1,27 @@
+Sauvegarde Projet
+git add .
+git commit -m "nom de la Sauvegarde"
+utiliser :  --no-verify (pour forcer la sauvegarde : git commit -m "nom de la Sauvegarde" --no-verify)
+Historique sauvegardes
+git log
+revenir à une ancienne version
+git checkout <id_du_commit>
+Tests
+npx jest tests/unit/utils/async-queue.test.js
+
+Lancement App
+NODE_ENV=development npm run dev
+
+
+
+✅ Rappel : à faire sur un autre poste ou après un clone
+Si quelqu’un clone ton repo, il devra exécuter une fois :
+
+bash
+Copier
+Modifier
+npm install
+npm run prepare
+Cela installera les hooks Husky correctement.
+
+

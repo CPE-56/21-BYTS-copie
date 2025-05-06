@@ -1,0 +1,139 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 21 BYTS\
+\
+21 BYTS est une application de bureau \'e0 d\'e9velopper pour Mac, Windows et Linux\
+Utilisation de vs code assist\'e9 par zencoder\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 c\'92est un application qui permet de t\'e9l\'e9chargement de fichier audio depuis des plateformes de streaming (YouTube, bandcamp, SoundCloud, Spotify, tidal \'85)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+La m\'e9thode de codage sera \'e0 d\'e9finir afin d\'92avoir la meilleure stabilit\'e9 pour l\'92ensemble des syst\'e8mes d\'92exploitations et la meilleure ma\'eetrise des \'e9l\'e9ments visuels (images, ic\'f4nes \'85)\
+\
+Tout les fichiers de codes seront de petites tailles et autonomes, ils d\'e9clencheront leurs propres fonctionnalit\'e9s, la modification d\'92un fichier ne devra jamais entra\'eener la modification d\'92un autre fichier (cette m\'e9thode devra imp\'e9rativement \'eatre respect\'e9e afin de pouvoir modifier, am\'e9liorer et maintenir l\'92application).\
+La structure devra \'eatre adapt\'e9e afin de respecter cette m\'e9thode\
+Les mise \'e0 jour s\'92effectueront automatiquement si n\'e9cessaire afin de garder l\'92application stable et \'e0 jour.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 Elle est capable de g\'e9n\'e9rer des fichiers aux formats mp3, wave, Flac et aif.\
+320kbs et 44100hz, et toujours la meilleure qualit\'e9 possible\
+Lors du collage d\'92un url et si cette url fait partie d\'92une playlist, elle proposera de t\'e9l\'e9charger le morceau ou la playlist compl\'e8te (maximum de 200 titres par playlist)\
+Pour les plateformes sans identification des solutions simple comme yt-dlp par exemple seront adopt\'e9s pour le t\'e9l\'e9chargement\
+Pour les plateformes avec identification comme tidal par exemple la solution de yarronz \'e0 l\'92adresse suivante https://github.com/yaronzz/Tidal-Media-Downloader ou https://github.com/yaronzz/Tidal-Media-Downloader-PRO, sera respect\'e9e, elle supportera les versions tidal-dl, tidal-gui et utilisera la m\'e9thode d\'92authentification ouate sera utilis\'e9e en apportant un soin particulier \'e0 la s\'e9curit\'e9, la seule modification qui sera \'e0 apporter est que la fen\'eatre pour le collage du code sur tidal s\'92ouvre automatiquement et que le code soit coller pour qu\'92il n\'92y ait plus qu\'92\'e0 valider\
+Mutagen par exemple sera utilis\'e9 pour la r\'e9cup\'e9ration des donn\'e9es (ceci d\'e9pendra de la m\'e9thode de codage, si une autre solution est plus stable, plus fiable ou plus performante elle sera automatiquement adopt\'e9e)\
+Ffmpeg par exemple sera utilis\'e9 pour la modification des fichiers audio (ceci d\'e9pendra de la m\'e9thode de codage, si une autre solution est plus stable, plus fiable ou plus performante elle sera automatiquement adopt\'e9e)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+La fen\'eatre sera compos\'e9e : \
+- d\'92un bandeau haut avec une ic\'f4ne coller url et une ic\'f4ne tout d\'e9marrer\
+- d\'92une fen\'eatre principale qui permettra le collage d\'92une url et qui affichera les t\'e9l\'e9chargements en cours, elle affichera la miniature du titre (pochette d\'92album si disponible ou image li\'e9e au titre), les m\'e9thadon\'e9es (titre, artiste, album, genre si disponible, sinon elle cherchera les informations minimum titre et artiste dans le titre), une progression du t\'e9l\'e9chargement et une ic\'f4ne d\'e9marrer\
+- elle devra pouvoir g\'e9rer le t\'e9l\'e9chargement multiple et affichera les diff\'e9rentes url coll\'e9es\
+- pour la barre de progression qui s\'92affichera en transparence, une couleur sera definie pour chacune des plateformes (rouge pour YouTube, bleu pour bandcamp, orange pour tidal \'85)\
+- d\'92un bandeau bas avec un bouton qui permet le choix de la sortie audio, un bouton effacer les t\'e9l\'e9chargements termin\'e9s, un bouton permettant d\'92ajouter directement le ou les morceaux \'e0 musique sur Mac ou \'e9quivalent sur les autre plateformes et d\'92un bouton aide\
+\
+L\'92ensemble des \'e9l\'e9ments n\'e9cessaires \'e0 l\'92interface, au design et au graphisme sera fourni\
+\
+\
+Prompt :\
+**Prompt pour le d\'e9veloppement de l'application 21 BYTS**  \
+\
+---\
+\
+### **Titre du projet**  \
+**21 BYTS - T\'e9l\'e9chargeur audio multiplateforme (Mac/Windows/Linux)**  \
+\
+---\
+\
+### **Objectif**  \
+D\'e9velopper une application de bureau intuitive et performante permettant de t\'e9l\'e9charger des fichiers audio depuis des plateformes de streaming (YouTube, Bandcamp, SoundCloud, Spotify, Tidal, etc.), avec une interface graphique moderne, une gestion modulaire du code, et une compatibilit\'e9 totale entre Mac, Windows et Linux.  \
+\
+---\
+\
+### **Sp\'e9cifications techniques**  \
+1. **Environnement de d\'e9veloppement** :  \
+   - **\'c9diteur** : Visual Studio Code (avec assistance Zencoder pour l'IA).  \
+   - **Langages/Frameworks** :  \
+     - **Frontend** : HTML/CSS/JavaScript (ou React.js pour modularit\'e9).  \
+     - **Backend** : Node.js (pour acc\'e8s syst\'e8me et gestion des t\'e9l\'e9chargements).  \
+     - **Structure modulaire** : Architecture **"Single File Components"** (chaque fichier g\'e8re une fonctionnalit\'e9 autonome, sans d\'e9pendances circulaires).\
+  - fichiers de petites tailles optimis\'e9s afin de permettre facilement le modification  \
+   - **Gestion des paquets** : npm ou yarn.  \
+   - **Build** : Electron (pour compatibilit\'e9 multi-OS) + Electron Builder.  \
+   - **Versioning** : Git avec branches s\'e9par\'e9es pour features/maintenances.  \
+\
+2. **M\'e9thodes de t\'e9l\'e9chargement** :  \
+   - Utiliser **yt-dlp** pour YouTube, SoundCloud, Bandcamp, Spotify (via m\'e9ta-donn\'e9es).  \
+   - Pour Tidal : int\'e9grer **Tidal-Media-Downloader-PRO** (https://github.com/yaronzz/Tidal-Media-Downloader-PRO) avec :  \
+     - Authentification OAuth s\'e9curis\'e9e (tokens stock\'e9s en AES-256).  \
+     - Ouverture automatique de la fen\'eatre de validation du code Tidal (collage automatique du code).  \
+   - **Conversion audio** : FFmpeg (ou alternative plus performante) pour g\'e9n\'e9rer MP3 (320kbps), WAV, FLAC, AIFF (44.1kHz, qualit\'e9 maximale).  \
+   - **Gestion des m\'e9tadonn\'e9es** : Utiliser Mutagen (ou TagLib) pour extraire/corriger les tags (titre, artiste, album, pochette).  \
+\
+3. **Modularit\'e9 du code** :  \
+   - Chaque fonctionnalit\'e9 est isol\'e9e dans un fichier/module ind\'e9pendant :  \
+     - `download-manager.js` (gestion des files d'attente, erreurs, reprises).  \
+     - `ui-renderer.js` (affichage dynamique des t\'e9l\'e9chargements).  \
+     - `auth-handler.js` (gestion OAuth pour Tidal).  \
+     - `settings-manager.js` (stockage des pr\'e9f\'e9rences utilisateur).  \
+   - il est imp\'e9ratif qu'aucun fichier ne doit d\'e9pendre d'un autre via des importations statiques (utiliser des \'e9v\'e9nements globaux ou des services partag\'e9s).  \
+\
+4. **Mises \'e0 jour automatiques** :  \
+   - Impl\'e9menter **Electron AutoUpdater** (via GitHub Releases) pour v\'e9rifier les mises \'e0 jour au lancement.  \
+   - T\'e9l\'e9chargement et installation silencieuse des mises \'e0 jour (avec fallback en cas d'\'e9chec).  \
+\
+---\
+\
+### **Fonctionnalit\'e9s cl\'e9s**  \
+1. **Interface utilisateur** :  \
+   - **Bandeau haut** :  \
+     - Ic\'f4ne "Coller URL" (collage automatique depuis le presse-papiers).  \
+     - Ic\'f4ne "Tout d\'e9marrer" (lancer tous les t\'e9l\'e9chargements en file d'attente).  \
+   - **Fen\'eatre principale** :  \
+     - Zone de collage d'URL (d\'e9tection automatique des playlists, max 200 titres, si playlist sup\'e9rieure \'e0 200 titres, inform\'e9 l\'92utilisateur que seul les 200 premier titres de la playlist seront t\'e9l\'e9charg\'e9).  \
+     - Liste des t\'e9l\'e9chargements en cours avec :  \
+       - Miniature (pochette d'album ou image par d\'e9faut).  \
+       - M\'e9tadonn\'e9es (titre, artiste, album, genre si disponible).  \
+       - Barre de progression color\'e9e (code couleur par plateforme : Rouge=YouTube, Bleu=Bandcamp, noir=Tidal, orange=SoundCloud, vert=spotify ...).  \
+       - Ic\'f4ne "D\'e9marrer" individuelle pour chaque fichier.  \
+   - **Bandeau bas** :  \
+     - Bouton "r\'e9glage" (dossier de destination et choix du format audio seront pour l\'92instant disponible mais il est n\'e9cessaire d\'92adapter la structure afin de pouvoir int\'e9grer de nouvelles fonctionnalit\'e9s).  \
+     - Bouton "Effacer termin\'e9s" (supprime les t\'e9l\'e9chargements r\'e9ussis).  \
+     - Bouton "Ajouter \'e0 la biblioth\'e8que" (import vers Music.app sur Mac, Media Player sur Windows, ou \'e9quivalent Linux).  \
+     - Bouton "Aide" (documentation int\'e9gr\'e9e et FAQ).  \
+\
+2. **T\'e9l\'e9chargement multiple** :  \
+   - Gestion simultan\'e9e de plusieurs URLs coll\'e9es (affichage en liste chronologique).  \
+   - D\'e9tection des playlists (ex : YouTube playlist \uc0\u8594  proposer t\'e9l\'e9chargement complet ou morceau unique).  \
+\
+3. **S\'e9curit\'e9** :  \
+   - Chiffrement AES-256 des identifiants Tidal (stock\'e9s localement, jamais en clair).  \
+   - V\'e9rification des checksums des fichiers t\'e9l\'e9charg\'e9s (via SHA-256).  \
+\
+---\
+\
+### **D\'e9livrables**  \
+1. **Code source** :  \
+   - Structure modulaire document\'e9e (README pour chaque module).  \
+   - Scripts de build pour Mac (dmg), Windows (exe), Linux (deb/appimage).  \
+2. **Documentation** :  \
+   - Guide d'installation des d\'e9pendances (FFmpeg, yt-dlp, etc.).  \
+   - Proc\'e9dure de d\'e9ploiement des mises \'e0 jour.  \
+3. **Ressources graphiques** :  \
+   - Int\'e9gration des ic\'f4nes, logos et assets fournis (formats SVG/PNG optimis\'e9s).  \
+\
+---\
+\
+### **Contraintes**  \
+- **Performance** : L\'e9g\'e8ret\'e9 de l'app (minifier JS/CSS, \'e9viter les biblioth\'e8ques inutiles).  \
+- **Testabilit\'e9** : Scripts de test automatis\'e9s (via Jest) pour les modules critiques.  \
+- **Compatibilit\'e9** : V\'e9rifier le rendu sur macOS 10.15+, Windows 10/11, Ubuntu 20.04+.  \
+\
+--- \
+\
+Ce prompt garantit une application stable, modulaire et facile \'e0 maintenir, tout en respectant les exigences techniques et esth\'e9tiques.}

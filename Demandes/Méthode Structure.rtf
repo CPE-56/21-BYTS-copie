@@ -1,0 +1,86 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Bold;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid1\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid101\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa298\partightenfactor0
+
+\f0\b\fs36 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 M\'e9thode recommand\'e9e : Architecture bas\'e9e sur les \'e9v\'e9nements\
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf0 Cette architecture permettrait de maintenir des modules totalement ind\'e9pendants qui communiquent via un syst\'e8me d'\'e9v\'e9nements centralis\'e9 plut\'f4t que par des importations directes.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Principes cl\'e9s :\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Bus d'\'e9v\'e9nements central
+\f1\b0  : Un m\'e9canisme simple qui permet \'e0 tous les modules de s'abonner et d'\'e9mettre des \'e9v\'e9nements sans r\'e9f\'e9rence directe entre eux.\
+\ls1\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Modules autonomes
+\f1\b0  : Chaque module (download-manager, ui-renderer, auth-handler, etc.) est enti\'e8rement autonome et ne conna\'eet pas l'existence des autres modules.\
+\ls1\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Communication par \'e9v\'e9nements
+\f1\b0  : Les modules communiquent exclusivement en \'e9mettant des \'e9v\'e9nements et en \'e9coutant ceux \'e9mis par d'autres modules.\
+\ls1\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	4	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Injection de d\'e9pendances l\'e9g\'e8re
+\f1\b0  : Pour les services partag\'e9s (comme la configuration), utiliser un pattern d'injection sans cr\'e9er de d\'e9pendances statiques.\
+\pard\pardeftab720\sa280\partightenfactor0
+
+\f0\b\fs28 \cf0 Structure de projet propos\'e9e :\
+/src\
+  /core\
+    event-bus.js       # M\'e9canisme central d'\'e9v\'e9nements\
+    app-container.js   # Initialisation des modules et injection l\'e9g\'e8re\
+    config-manager.js  # Configuration globale\
+  /modules\
+    /download\
+      download-manager.js    # Gestion des t\'e9l\'e9chargements\
+      platform-adapters/     # Adaptateurs pour chaque plateforme\
+    /ui\
+      ui-renderer.js         # Interface utilisateur\
+      components/            # Composants UI r\'e9utilisables\
+    /auth\
+      auth-handler.js        # Gestion des authentifications\
+    /metadata\
+      metadata-manager.js    # Gestion des m\'e9tadonn\'e9es\
+  /utils\
+    format-converter.js      # Conversion entre formats audio\
+    file-operations.js       # Op\'e9rations sur les fichiers\
+  main.js                    # Point d'entr\'e9e Electron\
+  preload.js                 # Script de pr\'e9chargement Electron\
+\
+\pard\pardeftab720\sa298\partightenfactor0
+
+\fs36 \cf0 Avantages de cette approche pour votre projet\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0
+\fs24 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Modularit\'e9 totale
+\f1\b0  : Chaque module est v\'e9ritablement autonome et peut \'eatre d\'e9velopp\'e9, test\'e9 et remplac\'e9 ind\'e9pendamment.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Flexibilit\'e9
+\f1\b0  : Facile d'ajouter de nouvelles fonctionnalit\'e9s sans modifier le code existant.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Testabilit\'e9
+\f1\b0  : Les modules peuvent \'eatre test\'e9s de mani\'e8re isol\'e9e en simulant les \'e9v\'e9nements.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	4	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Maintenance simplifi\'e9e
+\f1\b0  : Les probl\'e8mes sont isol\'e9s dans des modules sp\'e9cifiques.\
+\ls2\ilvl0
+\f0\b \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	5	}\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \'c9volutivit\'e9
+\f1\b0  : L'architecture permet d'ajouter facilement de nouvelles plateformes de streaming ou formats audio.\
+}

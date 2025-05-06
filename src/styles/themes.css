@@ -1,0 +1,325 @@
+/**
+ * @file themes.css
+ * @description Gestion des thèmes visuels pour l'application 21 BYTS
+ *
+ * Ce fichier définit les variables CSS et les classes pour tous les thèmes de l'application.
+ * Il fonctionne de manière autonome et communique avec le reste de l'application uniquement
+ * via l'attribut data-theme sur l'élément racine HTML.
+ *
+ * Événements écoutés:
+ * - Aucun (le thème est appliqué via l'attribut data-theme)
+ *
+ * Comportement:
+ * - L'application utilise l'attribut data-theme="..." sur l'élément <html> pour appliquer un thème
+ * - Les thèmes disponibles sont: 'dark' (défaut), 'light', 'midnight-blue', 'amber', 'teal'
+ * - Exemple: document.documentElement.setAttribute('data-theme', 'light');
+ */
+
+/* Variables CSS globales (thème par défaut - dark) */
+:root {
+  /* Couleurs de base */
+  --background-primary: #1a1f35;
+  --background-secondary: #2d3a66;
+  --background-tertiary: rgba(255, 255, 255, 0.07);
+  --background-elevated: rgba(255, 255, 255, 0.12);
+  --background-interactive: rgba(255, 255, 255, 0.15);
+
+  /* Couleurs de texte */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-tertiary: rgba(255, 255, 255, 0.6);
+
+  /* Bordures et séparateurs */
+  --border-light: rgba(255, 255, 255, 0.2);
+  --border-lighter: rgba(255, 255, 255, 0.25);
+  --border-subtle: rgba(255, 255, 255, 0.15);
+
+  /* Éléments interactifs */
+  --button-bg: rgba(255, 255, 255, 0.15);
+  --button-border: rgba(255, 255, 255, 0.3);
+  --button-hover-bg: rgba(255, 255, 255, 0.25);
+  --button-active-bg: rgba(255, 255, 255, 0.35);
+
+  /* Couleurs des plateformes */
+  --platform-youtube: #ee0000;
+  --platform-bandcamp: #1da0c3;
+  --platform-spotify: #1db954;
+  --platform-soundcloud: #ff7700;
+  --platform-tidal: #000000;
+
+  /* Opacités pour les barres de progression */
+  --progress-opacity-solid: 0.95;
+  --progress-opacity-fade: 0.4;
+
+  /* Effets spéciaux */
+  --glass-effect-blur: 10px;
+  --border-radius-small: 10px;
+  --border-radius-medium: 12px;
+  --border-radius-large: 16px;
+
+  /* Transitions */
+  --transition-speed: 0.3s;
+  --transition-function: ease-in-out;
+
+  /* Ombres */
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  /* Dimensions et espacements */
+  --header-height: 120px;
+  --footer-height: 40px;
+  --item-height: 90px;
+  --content-padding: 20px;
+}
+
+/* Thème clair */
+[data-theme='light'] {
+  --background-primary: #f0f2f5;
+  --background-secondary: #e0e7ff;
+  --background-tertiary: rgba(0, 0, 0, 0.04);
+  --background-elevated: rgba(0, 0, 0, 0.08);
+  --background-interactive: rgba(0, 0, 0, 0.12);
+
+  --text-primary: #121212;
+  --text-secondary: rgba(0, 0, 0, 0.8);
+  --text-tertiary: rgba(0, 0, 0, 0.6);
+
+  --border-light: rgba(0, 0, 0, 0.15);
+  --border-lighter: rgba(0, 0, 0, 0.2);
+  --border-subtle: rgba(0, 0, 0, 0.1);
+
+  --button-bg: rgba(0, 0, 0, 0.1);
+  --button-border: rgba(0, 0, 0, 0.2);
+  --button-hover-bg: rgba(0, 0, 0, 0.15);
+  --button-active-bg: rgba(0, 0, 0, 0.25);
+
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Thème Midnight Blue */
+[data-theme='midnight-blue'] {
+  --background-primary: #0c1428;
+  --background-secondary: #1a2b4c;
+  --background-tertiary: rgba(255, 255, 255, 0.05);
+  --background-elevated: rgba(255, 255, 255, 0.1);
+  --background-interactive: rgba(255, 255, 255, 0.12);
+
+  --button-bg: rgba(82, 109, 165, 0.3);
+  --button-border: rgba(82, 109, 165, 0.5);
+  --button-hover-bg: rgba(82, 109, 165, 0.4);
+  --button-active-bg: rgba(82, 109, 165, 0.6);
+
+  --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Thème Amber */
+[data-theme='amber'] {
+  --background-primary: #2c1800;
+  --background-secondary: #4e2c00;
+  --background-tertiary: rgba(255, 255, 255, 0.05);
+  --background-elevated: rgba(255, 255, 255, 0.08);
+  --background-interactive: rgba(255, 255, 255, 0.12);
+
+  --button-bg: rgba(255, 176, 59, 0.25);
+  --button-border: rgba(255, 176, 59, 0.4);
+  --button-hover-bg: rgba(255, 176, 59, 0.35);
+  --button-active-bg: rgba(255, 176, 59, 0.5);
+}
+
+/* Thème Teal */
+[data-theme='teal'] {
+  --background-primary: #042f2e;
+  --background-secondary: #134e4a;
+  --background-tertiary: rgba(255, 255, 255, 0.05);
+  --background-elevated: rgba(255, 255, 255, 0.08);
+  --background-interactive: rgba(255, 255, 255, 0.12);
+
+  --button-bg: rgba(45, 212, 191, 0.25);
+  --button-border: rgba(45, 212, 191, 0.4);
+  --button-hover-bg: rgba(45, 212, 191, 0.35);
+  --button-active-bg: rgba(45, 212, 191, 0.5);
+}
+
+/* Classes d'utilitaires pour les dégradés des plateformes */
+.bg-youtube-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--platform-youtube) var(--progress-opacity-solid) 0%,
+    var(--platform-youtube) var(--progress-opacity-fade) 100%
+  );
+}
+
+.bg-bandcamp-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--platform-bandcamp) var(--progress-opacity-solid) 0%,
+    var(--platform-bandcamp) var(--progress-opacity-fade) 100%
+  );
+}
+
+.bg-spotify-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--platform-spotify) var(--progress-opacity-solid) 0%,
+    var(--platform-spotify) var(--progress-opacity-fade) 100%
+  );
+}
+
+.bg-soundcloud-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--platform-soundcloud) var(--progress-opacity-solid) 0%,
+    var(--platform-soundcloud) var(--progress-opacity-fade) 100%
+  );
+}
+
+.bg-tidal-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--platform-tidal) var(--progress-opacity-solid) 0%,
+    var(--platform-tidal) var(--progress-opacity-fade) 100%
+  );
+}
+
+/* Classes pour le glassmorphism */
+.glass-effect {
+  backdrop-filter: blur(var(--glass-effect-blur));
+  -webkit-backdrop-filter: blur(var(--glass-effect-blur));
+}
+
+.glass-card {
+  background: var(--background-tertiary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--border-radius-medium);
+  transition: all var(--transition-speed) var(--transition-function);
+}
+
+.glass-card:hover {
+  background: var(--background-elevated);
+  border-color: var(--border-lighter);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* Boutons et éléments interactifs */
+.btn {
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  color: var(--text-primary);
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-function);
+}
+
+.btn:hover {
+  background: var(--button-hover-bg);
+}
+
+.btn:active {
+  background: var(--button-active-bg);
+}
+
+/* Classes pour le texte */
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
+}
+
+/* Classes pour les éléments de la mise en page */
+.header {
+  height: var(--header-height);
+  background: var(--background-elevated);
+  border-radius: var(--border-radius-large);
+  margin-bottom: var(--content-padding);
+}
+
+.footer {
+  height: var(--footer-height);
+  background: var(--background-elevated);
+  border-radius: var(--border-radius-large);
+  margin-top: var(--content-padding);
+}
+
+.download-item {
+  height: var(--item-height);
+  background: var(--background-tertiary);
+  border-radius: var(--border-radius-medium);
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet de glow sur hover des plateformes */
+.youtube-glow:hover {
+  box-shadow: 0 0 15px var(--platform-youtube);
+}
+
+.bandcamp-glow:hover {
+  box-shadow: 0 0 15px var(--platform-bandcamp);
+}
+
+.spotify-glow:hover {
+  box-shadow: 0 0 15px var(--platform-spotify);
+}
+
+.soundcloud-glow:hover {
+  box-shadow: 0 0 15px var(--platform-soundcloud);
+}
+
+.tidal-glow:hover {
+  box-shadow: 0 0 15px var(--platform-tidal);
+}
+
+/* Animation pour les barres de progression */
+@keyframes pulse {
+  0% {
+    opacity: var(--progress-opacity-solid);
+  }
+  50% {
+    opacity: var(--progress-opacity-fade);
+  }
+  100% {
+    opacity: var(--progress-opacity-solid);
+  }
+}
+
+.progress-animate {
+  animation: pulse 2s infinite var(--transition-function);
+}
+
+/* Media queries pour responsive design */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 80px;
+    --item-height: 70px;
+    --content-padding: 10px;
+  }
+
+  .btn {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --header-height: 60px;
+    --item-height: 60px;
+    --content-padding: 5px;
+  }
+
+  .btn {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+  }
+} /* Thèmes de l'application */
+/* Créé automatiquement le 2025-05-02 */

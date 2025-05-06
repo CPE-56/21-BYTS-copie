@@ -1,0 +1,39 @@
+# Dépendances
+node_modules/
+
+# Fichiers de build Electron / Desktop
+dist/
+build/
+out/
+release/
+*.dmg
+*.app
+*.exe
+*.pkg
+*.snap
+*.asar
+
+# Fichiers temporaires
+*.log
+logs/
+*.bak
+*.tmp
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Environnements
+.env
+.env.*
+
+# IDE / éditeurs
+.vscode/
+
+# Tests
+coverage/
+*.lcov
+
+# Archives & verrous
+*.tgz
+*.lock
