@@ -453,10 +453,10 @@ function initialize(eventBus) {
   }
 
   /**
-   * Exporte la configuration vers un fichier
-   * @param {string} exportPath - Chemin du fichier d'exportation
+   * Exporte la configuration vers un fichier ou retourne l'objet
+   * @param {string|null} exportPath - Chemin du fichier d'exportation ou null pour retourner l'objet
    * @param {boolean} includeCredentials - Inclure ou non les identifiants
-   * @returns {boolean} Succès de l'opération
+   * @returns {boolean|Object} Succès de l'opération ou objet de configuration
    */
   function exportConfig(exportPath, includeCredentials = false) {
     try {
@@ -472,6 +472,11 @@ function initialize(eventBus) {
       if (!includeCredentials) {
         delete exportConfig.credentials;
         delete exportConfig.encryptionKey;
+      }
+
+      // Si aucun chemin n'est fourni, retourner l'objet (pour les tests)
+      if (!exportPath) {
+        return exportConfig;
       }
 
       // Exporter la configuration
@@ -495,16 +500,26 @@ function initialize(eventBus) {
   }
 
   /**
-   * Importe la configuration depuis un fichier
-   * @param {string} importPath - Chemin du fichier d'importation
+   * Importe la configuration depuis un fichier ou un objet
+   * @param {string|Object} importPath - Chemin du fichier d'importation ou objet de configuration
    * @param {boolean} mergeWithCurrent - Fusionner avec la configuration actuelle
    * @returns {boolean} Succès de l'opération
    */
   function importConfig(importPath, mergeWithCurrent = true) {
     try {
-      // Lire le fichier d'importation
-      const importData = fs.readFileSync(importPath, 'utf8');
-      const importedConfig = JSON.parse(importData);
+      let importedConfig;
+
+      // Déterminer si l'entrée est un chemin de fichier ou un objet de configuration
+      if (typeof importPath === 'string') {
+        // C'est un chemin de fichier
+        const importData = fs.readFileSync(importPath, 'utf8');
+        importedConfig = JSON.parse(importData);
+      } else if (typeof importPath === 'object' && importPath !== null) {
+        // C'est un objet de configuration directement fourni (pour les tests)
+        importedConfig = importPath;
+      } else {
+        throw new Error("Format d'importation invalide");
+      }
 
       // S'assurer que la configuration est chargée
       if (!configCache) {
@@ -536,7 +551,7 @@ function initialize(eventBus) {
       // Sauvegarder la nouvelle configuration
       const success = saveConfig(newConfig);
 
-      if (success) {
+      if (success && typeof importPath === 'string') {
         eventBus.publish('CONFIG_IMPORTED', {
           path: importPath,
           mergedWithCurrent: mergeWithCurrent
@@ -648,7 +663,24 @@ function initialize(eventBus) {
   };
 }
 
-// Exporter un objet avec la méthode d'initialisation
+// Créer une instance du gestionnaire de configuration
+const configManagerInstance = initialize;
+
+// Exporter un objet avec toutes les méthodes nécessaires pour les tests
 module.exports = {
-  initialize
+  initialize: (eventBus) => {
+    const instance = configManagerInstance(eventBus);
+    // Exposer les méthodes pour les tests
+    module.exports.get = instance.getConfig;
+    module.exports.set = instance.setConfig;
+    module.exports.reset = instance.resetConfig;
+    module.exports.export = instance.exportConfig;
+    module.exports.import = instance.importConfig;
+    return instance;
+  },
+  get: null,  // Sera remplacé lors de l'initialisation
+  set: null,  // Sera remplacé lors de l'initialisation
+  reset: null, // Sera remplacé lors de l'initialisation
+  export: null, // Sera remplacé lors de l'initialisation
+  import: null  // Sera remplacé lors de l'initialisation
 };

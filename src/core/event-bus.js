@@ -1,5 +1,17 @@
 /**
  * @fileoverview EventBus - Bus d'événements amélioré avec traçabilité pour 21 BYTS
+ */
+
+// Fallback sécurisé pour ipcRenderer
+let ipcRenderer;
+try {
+  const electron = require('electron');
+  ipcRenderer = electron?.ipcRenderer;
+} catch (e) {
+  ipcRenderer = null;
+}
+
+/**
  * @description Ce module implémente un bus d'événements centralisé pour la communication entre modules
  * sans dépendances directes. Il fournit des mécanismes d'abonnement/publication (pub/sub) avancés
  * avec traçabilité, débogage et gestion des erreurs.
@@ -20,7 +32,6 @@
  * window.appEvents.publish('download:start', { url: 'https://example.com/audio.mp3' });
  */
 
-const { ipcRenderer } = require('electron');
 
 /**
  * Classe EventBus - Implémente le bus d'événements central de l'application
@@ -49,34 +60,32 @@ class EventBus {
    * @private
    */
   init() {
-    // Écouter les événements de configuration
     this.subscribe('config:updated', this.handleConfigUpdate.bind(this));
 
-    // Écouter les événements système d'Electron
     const systemEventHandler = (_, eventData) => {
       this.publish('system:event', eventData);
     };
-    ipcRenderer.on('system:event', systemEventHandler);
 
-    // Stocker les références aux gestionnaires d'événements pour pouvoir les nettoyer
+    if (ipcRenderer && typeof ipcRenderer.on === 'function') {
+      ipcRenderer.on('system:event', systemEventHandler);
+    }
+
     this._eventHandlers = {
       systemEvent: systemEventHandler,
       windowError: this._handleWindowError.bind(this),
       unhandledRejection: this._handleUnhandledRejection.bind(this)
     };
 
-    // Publier un événement indiquant que le bus d'événements est prêt
     setTimeout(() => {
       this.publish('core:event-bus:ready', { id: this.id });
     }, 0);
 
-    // Intercepter les erreurs non capturées et les publier sur le bus d'événements
-    window.addEventListener('error', this._eventHandlers.windowError);
+    // ✅ Ajout du fallback sécurisé pour éviter les erreurs en environnement Node
+    if (typeof window !== 'undefined') {
+      window.addEventListener('error', this._eventHandlers.windowError);
+      window.addEventListener('unhandledrejection', this._eventHandlers.unhandledRejection);
+    }
 
-    // Intercepter les rejets de promesses non gérés
-    window.addEventListener('unhandledrejection', this._eventHandlers.unhandledRejection);
-
-    // S'abonner à l'événement de fermeture de l'application pour nettoyer
     this.subscribe('APP_BEFORE_QUIT', this._cleanup.bind(this));
   }
 
@@ -116,10 +125,15 @@ class EventBus {
    */
   _cleanup() {
     if (this._eventHandlers) {
-      // Supprimer les écouteurs d'événements
-      window.removeEventListener('error', this._eventHandlers.windowError);
-      window.removeEventListener('unhandledrejection', this._eventHandlers.unhandledRejection);
-      ipcRenderer.removeListener('system:event', this._eventHandlers.systemEvent);
+      // ✅ Nettoyage sécurisé même sans environnement window (tests)
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('error', this._eventHandlers.windowError);
+        window.removeEventListener('unhandledrejection', this._eventHandlers.unhandledRejection);
+      }
+
+      if (ipcRenderer && typeof ipcRenderer.removeListener === 'function') {
+        ipcRenderer.removeListener('system:event', this._eventHandlers.systemEvent);
+      }
 
       console.log("[EventBus] Nettoyage des gestionnaires d'événements effectué");
     }
@@ -436,9 +450,10 @@ function initialize() {
   if (!eventBusInstance) {
     eventBusInstance = new EventBus();
 
-    // Exposer le bus d'événements globalement pour que tous les modules puissent y accéder
-    // sans avoir besoin d'importations
-    window.appEvents = eventBusInstance;
+    // ✅ Ne pas crasher dans les tests (Node.js)
+    if (typeof window !== 'undefined') {
+      window.appEvents = eventBusInstance;
+    }
 
     console.info(`[EventBus] Initialized with ID: ${eventBusInstance.id}`);
   }

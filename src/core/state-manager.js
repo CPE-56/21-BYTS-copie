@@ -578,16 +578,36 @@ function StateManager() {
 
   // Note: La fonction pathToRegExp a été supprimée car elle n'était pas utilisée
 
-  // Interface publique (exposée uniquement à travers le bus d'événements)
+  // Interface publique
   return {
-    initialize
+    initialize,
+    get: getStateValue,
+    set: setStateValue,
+    update: (obj) => {
+      if (typeof obj !== 'object' || obj === null) {
+        throw new Error('Update requires an object');
+      }
+
+      // Mise à jour de l'état avec l'objet fourni
+      Object.keys(obj).forEach(key => {
+        setStateValue(key, obj[key]);
+      });
+    },
+    reset: () => {
+      // Réinitialisation de l'état avec les valeurs par défaut
+      state = JSON.parse(JSON.stringify(defaultState));
+    }
   };
 }
 
 // Création de l'instance unique (singleton)
 const stateManager = StateManager();
 
-// Exportation de l'objet avec la méthode d'initialisation
+// Exportation de l'objet avec toutes les méthodes nécessaires pour les tests
 module.exports = {
-  initialize: stateManager.initialize
+  initialize: stateManager.initialize,
+  get: stateManager.get,
+  set: stateManager.set,
+  update: stateManager.update,
+  reset: stateManager.reset
 };
