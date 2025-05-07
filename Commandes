@@ -7,7 +7,8 @@ git log
 revenir à une ancienne version
 git checkout <id_du_commit>
 Tests
-npx jest tests/unit/utils/async-queue.test.js
+npx jest tests/unit/utils/async-queue.test.js (test unitaire)
+npx jest --coverage (tests)
 
 Lancement App
 NODE_ENV=development npm run dev
@@ -18,8 +19,6 @@ NODE_ENV=development npm run dev
 Si quelqu’un clone ton repo, il devra exécuter une fois :
 
 bash
-Copier
-Modifier
 npm install
 npm run prepare
 Cela installera les hooks Husky correctement.
