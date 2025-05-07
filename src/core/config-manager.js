@@ -678,9 +678,9 @@ module.exports = {
     module.exports.import = instance.importConfig;
     return instance;
   },
-  get: null,  // Sera remplacé lors de l'initialisation
-  set: null,  // Sera remplacé lors de l'initialisation
+  get: null, // Sera remplacé lors de l'initialisation
+  set: null, // Sera remplacé lors de l'initialisation
   reset: null, // Sera remplacé lors de l'initialisation
   export: null, // Sera remplacé lors de l'initialisation
-  import: null  // Sera remplacé lors de l'initialisation
+  import: null // Sera remplacé lors de l'initialisation
 };

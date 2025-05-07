@@ -32,7 +32,6 @@ try {
  * window.appEvents.publish('download:start', { url: 'https://example.com/audio.mp3' });
  */
 
-
 /**
  * Classe EventBus - Implémente le bus d'événements central de l'application
  */

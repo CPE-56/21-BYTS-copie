@@ -1,6 +1,7 @@
 Sauvegarde Projet
 git add .
 git commit -m "nom de la Sauvegarde"
+git push --force origin main (forcer le sauvegarde !)
 utiliser :  --no-verify (pour forcer la sauvegarde : git commit -m "nom de la Sauvegarde" --no-verify)
 Historique sauvegardes
 git log

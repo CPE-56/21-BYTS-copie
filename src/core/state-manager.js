@@ -589,7 +589,7 @@ function StateManager() {
       }
 
       // Mise à jour de l'état avec l'objet fourni
-      Object.keys(obj).forEach(key => {
+      Object.keys(obj).forEach((key) => {
         setStateValue(key, obj[key]);
       });
     },
